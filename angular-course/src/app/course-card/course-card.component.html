@@ -1,0 +1,21 @@
+<div class="course-card" *ngIf="course" [ngClass]="cardClasses()">
+  <div *ngIf="course" [title]="course.description">
+    <div class="course-title">
+      {{course.description}}
+    </div>
+    <img width="300" alt="Angular Logo" [src]="course.iconUrl" *ngIf="isVisibleImage(); else noImage ">
+    <ng-template #noImage> No available Image</ng-template>
+
+    <div class="course-description">
+      {{course.longDescription}}
+    </div>
+    <div class="course-category" [ngSwitch]="course.category">
+      <div class="category" *ngSwitchCase="'BEGINNER'"> BEGINNER </div>
+      <div class="category" *ngSwitchCase="'INTERMEDIATE'"> INTERMEDIATE </div>
+      <div class="category" *ngSwitchCase="'ADVANCED'"> ADVANCED </div>
+      <div class="category" *ngSwitchDefault> All Levels </div>
+    </div>
+    <button (click)="getSelectedCourses()"> View Course </button>
+
+  </div>
+</div>

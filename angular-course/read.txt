@@ -1,0 +1,49 @@
+-> LES DIRECTIVES STRUCTURELLES
+
+-Pour le ngFor, on a changé de syntaxe. Au lieu de l'implémenter dans le template visé, on l'implémente dans le App component et la variable item doit être passée as @Input() au niveau du fils.
+Notons que ngFor a plusieurs features que l'on peut lui ajouter comme:
+-> index as i
+-> first as first-index
+-> last as last-index
+-> odd as odd-index
+-> even as even-index
+
+
+  <course-card *ngFor="let course of COURSES; first as isFirst; last as isLast; even as isEven; odd as isOdd"
+    (onSelectedCourse)="getCourses($event)" [course]="course" [class.is-first]="isFirst" [class.is-last]="isLast"
+    [class.is-even]="isEven" [class.is-odd]="isOdd"> </course-card>
+
+    -Pour le *ngIf, la syntaxe est simple sauf que l'on peut y appliquer également un else
+    <div *ngIf="isActive; else noActive">
+    <ng-template #noActive> No activated </ng-template>
+    </div>
+
+    -Pour le ngClass, on l'utilise quand on veut appliquer des classes qui sont conditionnelles et qui changent en fonction des datas
+- Pour le ngStyle, c'est le même principe qu'avec le ngClass
+- Pour ngSwitch
+
+<div class="course-card" *ngIf="course" [ngClass]="cardClasses()">
+  <div *ngIf="course" [title]="course.description">
+    <div class="course-title">
+      {{course.description}}
+    </div>
+    <img width="300" alt="Angular Logo" [src]="course.iconUrl" *ngIf="isVisibleImage(); else noImage ">
+    <ng-template #noImage> No available Image</ng-template>
+
+    <div class="course-category" [ngSwitch]="course.category">
+      <div class="category" *ngSwitchCase="'BEGINNER'"> BEGINNER </div>
+      <div class="category" *ngSwitchCase="'INTERMEDIATE'"> INTERMEDIATE </div>
+      <div class="category" *ngSwitchCase="'ADVANCED'"> ADVANCED </div>
+      <div class="category" *ngSwitchDefault> All Levels </div>
+    </div>
+    <button (click)="getSelectedCourses()"> View Course </button>
+
+  </div>
+
+
+
+-Pour [ng-container] : on l'applique quand on veut juste faire une directive au lieu de rajouter des div au niveau de notre HTML
+
+
+
+-> LES PIPES
